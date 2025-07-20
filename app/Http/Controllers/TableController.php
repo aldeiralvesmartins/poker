@@ -69,4 +69,47 @@ class TableController extends Controller
         return response()->json(['message' => 'Você saiu da mesa com sucesso']);
     }
 
+    public function state($id)
+    {
+        $table = Table::with('players')->find($id);
+
+        if (!$table) {
+            return response()->json(['message' => 'Mesa não encontrada'], 404);
+        }
+
+        $playersCount = $table->players->count();
+        $maxPlayers = $table->max_players;
+
+        // Defina status conforme a lógica anterior
+        if (!$table->is_active) {
+            $status = 'waiting';
+        } else {
+            if ($playersCount >= $maxPlayers) {
+                $status = 'full';
+            } else {
+                $status = 'playing';
+            }
+            if ($table->is_finished) {
+                $status = 'finished';
+            }
+        }
+
+        // Exemplo: montar gameState com as informações da partida
+        $gameState = [
+            'status' => $status,
+            'playersCount' => $playersCount,
+            'maxPlayers' => $maxPlayers,
+            // Aqui você pode adicionar mais detalhes do estado do jogo,
+            // ex: dealer, rodada, pot atual, cartas da mesa, etc
+        ];
+
+        return response()->json([
+            'table' => $table,
+            'players' => $table->players,
+            'gameState' => $gameState,
+        ]);
+    }
+
+
+
 }

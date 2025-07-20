@@ -13,7 +13,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('tables', TableController::class);
     Route::post('/tables/{id}/join', [TableController::class, 'join']);
     Route::post('/tables/{id}/leave', [TableController::class, 'leave']);
-
+    Route::get('/tables/{id}/state', [TableController::class, 'state']);
     // Jogos
     Route::post('/tables/{id}/start', [GameController::class, 'start']);
     Route::post('/games/{id}/action', [GameController::class, 'action']);
