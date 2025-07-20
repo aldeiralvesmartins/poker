@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     protected $fillable = [
-        'name', 'owner_id', 'max_players', 'small_blind', 'big_blind', 'buy_in',
+        'name', 'owner_id', 'max_players', 'small_blind', 'big_blind', 'buy_in', 'status'
     ];
 
     public function owner()
