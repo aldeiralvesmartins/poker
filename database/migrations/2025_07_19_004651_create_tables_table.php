@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('small_blind');
             $table->integer('big_blind');
             $table->integer('buy_in');
+            $table->string('status')->default('waiting');
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
